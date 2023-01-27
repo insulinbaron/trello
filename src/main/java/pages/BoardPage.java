@@ -1,7 +1,5 @@
 package pages;
 
-
-import org.openqa.selenium.By;
 import pages.elements.colors.BackgroundColors;
 import pages.elements.colors.CoverColors;
 import org.openqa.selenium.Keys;
