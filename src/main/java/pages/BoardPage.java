@@ -12,91 +12,174 @@ import org.openqa.selenium.support.PageFactory;
 import java.time.Duration;
 import java.util.List;
 
+/**
+ * The type Board page.
+ * Trello board page
+ */
 public class BoardPage extends BasePage {
 
 
-    @FindBys({@FindBy(xpath = "//div[@class='list js-list-content']")})
-    List<WebElement> lists;
-
+    /**
+     * Карточки на активной доске
+     */
     @FindBys({@FindBy(xpath = "//span[contains(@class, 'list-card')]")})
-    List<WebElement> cards;
+    private List<WebElement> cards;
 
+    /**
+     * Имя колонки, на которой располагается активная карточка
+     */
     @FindBy(xpath = "//a[contains(@class, 'js-open-move')]")
-    WebElement listName;
+    private WebElement listName;
 
+    /**
+     *  Чекбоксы контрольного списка
+     */
     @FindBys({@FindBy(xpath = "//div[contains(@class, 'checklist-item') and contains(@class, 'no-assignee')]")})
-    List<WebElement> checkListCheckboxes;
+    private List<WebElement> checkListCheckboxes;
 
+    /**
+     *  Чекбокс выполнения карточки в срок
+     */
     @FindBy(xpath = "//a[contains(@aria-label, 'due')]")
-    WebElement dueDateCheckbox;
+    private WebElement dueDateCheckbox;
 
-    @FindBy(xpath = "//a[contains(@class, 'window-cover-menu-button')]")
-    WebElement cardCoverButton;
+    /**
+     *  Кнопка для изменения обложки карточки
+     */
+    @FindBys({@FindBy(xpath = "//*[normalize-space(text())='Cover']")})
+    private List<WebElement> coverButtons;
 
-    @FindBy(xpath = "//button[contains(@class,'aRrCrZDsIPXOIa kx4oqRlqCFjWrx')]")
-    WebElement greenCoverButton;
 
-    @FindBy(xpath = "//span[@class='QGQQqF2k7sDfTH PIt9GK-OWhTljI']")
-    WebElement cardStatus;
+    /**
+     * Статус выполнения карточки
+     */
+    @FindBy(xpath = "//div[contains(@class, 'card-detail-due-date-badge')]")
+    private WebElement cardDueStatus;
 
+    /**
+     * Кнопка закрытия активной карточки.
+     */
     @FindBy(xpath = "//a[contains(@class, 'dialog-close-button')]")
-    WebElement closeCardButton;
+    private WebElement closeCardButton;
 
+    /**
+     * Кнопка открытия меню на активной трелло доске
+     */
     @FindBy(xpath = "//button[@aria-label='Show menu']")
-    WebElement menuButton;
+    private WebElement menuButton;
 
+    /**
+     * Кнопка в меню доски для изменения фона
+     */
     @FindBy(xpath = "//a[contains(@class, 'change-background')]")
-    WebElement changeBackgroundButton;
+    private WebElement changeBackgroundButton;
 
+    /**
+     * Кнопка в меню доски, после нажатия отображаются доступные цвета для смены фона доски трелло
+     */
     @FindBy(xpath = "//div[contains(text(), 'Colors')]")
-    WebElement backgroundColorsButton;
+    private WebElement backgroundColorsButton;
 
+    /**
+     * Доступные цвета для изменения фона доски трелло
+     */
     @FindBys({@FindBy(xpath = "//div[contains(@style, 'background-color') and contains(@class, 'image')]")})
-    List<WebElement> backgroundColors;
+    private List<WebElement> backgroundColors;
 
+    /**
+     * Название активной доски
+     */
     @FindBy(xpath = "//div[contains(@class, 'board-name')]")
-    WebElement boardName;
+    private WebElement boardName;
 
+    /**
+     * Кнопка закрытия меню доски
+     */
     @FindBy(xpath = "//a[contains(@class, 'menu-header-close-button')]")
-    WebElement menuCloseButton;
+    private WebElement menuCloseButton;
 
-    @FindBy(xpath = "//button[contains(@class, 'aRrCrZDsIPXOIa')]")
-    List<WebElement> coverColors;
-
+    /**
+     * Корневой вебэлемент страницы
+     */
     @FindBy(xpath = "//div[@id='trello-root']")
-    WebElement root;
+    private WebElement root;
 
+    /**
+     * Кнопка 'more' в меню доски.
+     */
     @FindBy(xpath = "//a[contains(@class, 'open-more')]")
-    WebElement moreButton;
+    private WebElement moreButton;
 
+    /**
+     *  Кнопка закрытия доски в меню доски
+     */
     @FindBy(xpath = "//a[contains(@class, 'close-board')]")
-    WebElement closeBoardButton;
+    private WebElement closeBoardButton;
 
+    /**
+     * Всплывающее окно подтверждения закртия доски
+     */
     @FindBy(xpath = "//div[@class='no-back']")
-    WebElement noBackPopup;
+    private WebElement noBackPopup;
 
+    /**
+     * Кнопка для подтверждения закртия доски в всплывающем окне подтверждения
+     */
     @FindBy(xpath = "//input[@value='Close']")
-    WebElement closeSubmitButton;
+    private WebElement closeSubmitButton;
 
+    /**
+     * Всплывающее окно подтверждения удаления доски
+     */
     @FindBy(xpath = "//h1[contains(@data-testid, 'close-board')]")
-    WebElement closeBoardPopup;
+    private WebElement closeBoardPopup;
 
+    /**
+     * кнопка для окончательного удаления доски.
+     * после нажатия появляется всплывающее окно, в котором требуется подтвердить текущее действие
+     */
     @FindBy(xpath = "//button[normalize-space(text())='Permanently delete board']")
-    WebElement permanentlyDelete;
+    private WebElement permanentlyDelete;
 
+    /**
+     * Кнопка удаления доски
+     */
     @FindBy(xpath = "//button[normalize-space(text())='Delete']")
-    WebElement deleteButton;
+    private WebElement deleteButton;
 
+    /**
+     * Кнопка "назад" для навигации в меню доски
+     */
     @FindBy(xpath = "//a[contains(@class, 'icon-back')]")
-    WebElement backMenuButton;
+    private WebElement backMenuButton;
+
+    /**
+     * Цвета обложки карточки, доступные для выбора
+     */
+    @FindBys({@FindBy(xpath = "//button[contains(@class, 'mQ')]")})
+    private List<WebElement> colors;
+
+    /**
+     * Обложка карточки
+     */
+    @FindBy(xpath = "//div[contains(@class, 'window-cover') and parent::div[contains(@class, 'card-detail-window')]]")
+    private WebElement windowCover;
 
 
+    /**
+     * Instantiates a new Board page.
+     */
     public BoardPage(){
         String currentUrl = driver.getCurrentUrl();
         driver.get(currentUrl);
         PageFactory.initElements(driver, this);
     }
 
+    /**
+     * Возвращает карточку трелло по имени
+     * cardName - имя карточки трелло
+     * @return WebElement trello card
+     */
     private WebElement getCard(String cardName){
         return cards.stream()
                 .filter(WebElement::isDisplayed)
@@ -105,11 +188,22 @@ public class BoardPage extends BasePage {
                 .orElseThrow(() -> new RuntimeException("Не удалось найти карточку \"" + cardName + "\""));
     }
 
+    /**
+     * Открыть карточку
+     *
+     * @param cardName имя карточки, которую нужно открыть
+     * @return the board page
+     */
     public BoardPage clickOnCard(String cardName){
         getCard(cardName).click();
         return this;
     }
 
+    /**
+     * Get list name string.
+     *
+     * @return имя колонки
+     */
     public String getListName(){
         return listName.getText();
     }
@@ -122,45 +216,57 @@ public class BoardPage extends BasePage {
                 .orElseThrow(() -> new RuntimeException("Не удалось найти чекбокс \"" + checkboxName + "\""));
     }
 
+    /**
+     * Проверяет выполнен ли чекбокс в контрольном списке.
+     *
+     * @param checkboxName название чекбокса на контрольном списке
+     * @return the boolean
+     * true если чекбокс выполнен и false если не выполнен
+     */
     public boolean checklistCheckboxIsComplete(String checkboxName){
         String value = getCheckListCheckbox(checkboxName).getAttribute("class");
         return value.contains("complete");
     }
 
 
+    /**
+     * Нажать на чекбокс выполнения карточки.
+     */
     public void clickOnDueCheckbox(){
         dueDateCheckbox.click();
     }
 
-    public BoardPage setGreenCover(){
-        cardCoverButton.click();
-        greenCoverButton.click();
-        return this;
-    }
+
+    /**
+     * Устанавливает цвет обложки на карточке.
+     *
+     * @param color цвет который стоит установить в качестве обложки карточки
+     * @return the board page
+     */
     public BoardPage setCoverColor(CoverColors color){
-        cardCoverButton.click();
+        WebElement button = coverButtons.stream()
+                .filter(WebElement::isDisplayed)
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Кнопка не отображается"));
+        button.click();
         getCoverColor(color).click();
         return this;
     }
 
-    private WebElement getCoverColor(CoverColors color) {
-        return coverColors.stream()
-                .filter(WebElement::isDisplayed)
-                .filter(el -> el.getAttribute("class").contains(color.getCode()))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Цвет не найден"));
-    }
 
+
+    /**
+     *
+     * Проверяет, что выбран нужный цвет карточки
+     *
+     * @param color проверяемый цвет
+     * @return the boolean
+     * true если выбран ожидаемый цвет и false если выбран другой цвет
+     */
     public boolean coverColorSelected(CoverColors color){
-        WebElement we = null;
         boolean result = false;
-        switch (color) {
-            case GREEN:
-                we = getCoverColor(CoverColors.GREEN);
-                break;
-        }
         try {
-            result = we.getAttribute("class").contains("_3GFiyhGr6WTMLB") ? true : false;
+            result = windowCover.getCssValue("background-color").equalsIgnoreCase(color.getRgba()) ? true : false;
         } catch (Exception e){
 
         }
@@ -168,40 +274,71 @@ public class BoardPage extends BasePage {
     }
 
 
-
+    /**
+     * Проверяет какой статус у карточки.
+     *
+     * @return статус карточки
+     */
     public String getCardStatus(){
-        return cardStatus.getText().trim();
+        String title = cardDueStatus.getAttribute("title");
+        String result = null;
+        switch (title){
+            case ("This card is complete."):
+                result = "complete";
+                break;
+            case ("This card is due later."):
+                result = "due later";
+                break;
+            case ("This card is past due."):
+                result = "past due";
+                break;
+        }
+        return result;
     }
 
+    /**
+     * Закрывает активную карточку.
+     *
+     * @return the board page
+     */
     public BoardPage closeCard(){ closeCardButton.click();
         return this;}
 
-    public WebElement getBackgroundColor(BackgroundColors color){
-        WebElement webElement = null;
-        switch (color) {
-            case GREEN:
-                webElement = getBackgroundButton(BackgroundColors.GREEN.getRgb());
-                break;
-        }
-        return  webElement;
-    }
 
-    private WebElement getBackgroundButton(String rgb){
+    /**
+     * Возвращает веб элемент цвета фона доски
+     *
+     * @param color цвет, веб элемент которого нужно вернуть
+     * @return веб элемент цвета
+     */
+
+    private WebElement getBackgroundColorButton(BackgroundColors color){
         return backgroundColors.stream()
                 .filter(WebElement::isDisplayed)
-                .filter(button -> button.getAttribute("style").contains(rgb))
+                .filter(button -> button.getAttribute("style").contains(color.getRgb()))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Не удалось найти кнопку с rgb: \"" + rgb + "\""));
+                .orElseThrow(() -> new RuntimeException("Не удалось найти кнопку с rgb: \"" + color.getRgb() + "\""));
     }
 
+    /**
+     * Установка фона доски.
+     *
+     * @param color цвет который нужно установить
+     * @return the board page
+     */
     public BoardPage setBackgroundColor(BackgroundColors color){
-        getBackgroundColor(color).click();
+        getBackgroundColorButton(color).click();
         backMenuButton.click();
         backMenuButton.click();
         menuCloseButton.click();
         return this;
     }
 
+    /**
+     * Открывает вкладку в меню доски, на которой отображаются цвета для выбора фона доски.
+     *
+     * @return the board page
+     */
     public BoardPage openBackgroundColors(){
         menuButton.click();
         changeBackgroundButton.click();
@@ -209,6 +346,12 @@ public class BoardPage extends BasePage {
         return this;
     }
 
+    /**
+     * Переименовывает активную доску.
+     *
+     * @param newName новое имя доски
+     * @return the board page
+     */
     public BoardPage renameBoard(String newName){
         Actions action = new Actions(driver);
         action.doubleClick(boardName)
@@ -221,14 +364,30 @@ public class BoardPage extends BasePage {
         return this;
     }
 
+    /**
+     * Проверяет цвет, который выбран в качестве фона доски
+     *
+     * @param color ожидаемый цвет фона доски
+     * @return the boolean
+     * true если выбран ожидаемый цвет и false если выбран любой другой цвет
+     */
     public boolean isBackgroundColor(BackgroundColors color){
         String style = root.getAttribute("style");
         return style.contains(color.getRgb());
     }
+
+    /**
+     * Возвращает имя активной доски.
+     *
+     * @return the string name of board
+     */
     public String getBoardName(){
         return boardName.getText();
     }
 
+    /**
+     * Закрывает активную доску.
+     */
     public void closeActiveBoard(){
         menuButton.click();
         moreButton.click();
@@ -240,5 +399,21 @@ public class BoardPage extends BasePage {
             permanentlyDelete.click();
             deleteButton.click();
         }
+    }
+    /**
+     * Is background color boolean.
+     *
+     * @param coverColor the color
+     * @return the boolean
+     * true if desired color selected else false
+     */
+
+    private WebElement getCoverColor(CoverColors coverColor){
+        return colors.stream()
+                .filter(WebElement::isDisplayed)
+                .filter(color -> color.getCssValue("background-color").equalsIgnoreCase(coverColor.getRgba()))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Цвет не найден"));
+
     }
 }

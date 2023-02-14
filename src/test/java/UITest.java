@@ -1,87 +1,77 @@
-import models.User;
 import pages.elements.colors.BackgroundColors;
 import pages.elements.colors.CoverColors;
-import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import org.testng.annotations.*;
-import pages.*;
-import utils.UserUtils;
+import static steps.UISteps.*;
 
 
 public class UITest {
-    private WebDriver driver;
-    private MainPage mainPage;
-    private HomePage homePage;
-    private BoardPage boardPage;
-
+    private String cardName = "Карточка для изучения API";
 
     @BeforeClass
     public void before(){
-        User user = UserUtils.initUser();
-        driver = DriverManager.createDriver();
-        BasePage.setDriver(driver);
-        mainPage = new MainPage();
-        LoginPage loginPage = mainPage.clickLogin();
-        loginPage.authorization(user.getEmail(), user.getPassword());
+        createDriver();
+        authorization();
+        initHomePage();
+        openBoard("kanbantool");
+        initBoardPage();
     }
 
     @AfterClass
     public void after(){
-        boardPage.closeActiveBoard();
-        driver.close();
-        driver.quit();
+        closeActiveBoard();
+        closeDriver();
+    }
+
+    @BeforeMethod(onlyForGroups = "dependentOnCard")
+    public void beforeCardGroup(){
+        openCard(cardName);
+    }
+
+    @AfterMethod(onlyForGroups = "dependentOnCard")
+    public void afterCardGroup(){
+        closeCard();
     }
 
     @Test(testName = "Карточка в колонке",
     priority = 2,
-    description = "Проверка отображения карточки в колонке")
+    description = "Проверка отображения карточки в колонке",
+    groups = "dependentOnCard")
     public void cardOnBoardTest() {
-        homePage = new HomePage();
-        BoardPage boardPage = homePage.openBoard("kanbantool");
-        boardPage.clickOnCard("Карточка для изучения API");
-
-        Assert.assertEquals(boardPage.getListName(), "Done", "Карточка находится в другой колонке");
+        checkCardOnList("Done");
     }
 
     @Test(testName = "Выполение чекбокса",
     description = "Проверка выполнения пунктов чекбоксов",
-    dependsOnMethods = "cardOnBoardTest")
+            groups = "dependentOnCard")
     public void completeCheckboxTest(){
-        boardPage = new BoardPage();
         String firstCheckboxName = "Понять протокол HTTP";
         String secondCheckboxName = "Выучить методы запросов";
-
-        Assert.assertTrue(boardPage.checklistCheckboxIsComplete(firstCheckboxName));
-        Assert.assertTrue(boardPage.checklistCheckboxIsComplete(secondCheckboxName));
+        checklistCheckboxIsComplete(firstCheckboxName);
+        checklistCheckboxIsComplete(secondCheckboxName);
     }
 
     @Test(testName = "Установка обложки",
             description = "Проверка установки зеленой обложки для карточки",
-            dependsOnMethods = "completeCheckboxTest")
+            groups = "dependentOnCard")
     public void setCoverColorTest(){
-        boardPage.setCoverColor(CoverColors.GREEN);
-
-        Assert.assertTrue(boardPage.coverColorSelected(CoverColors.GREEN), "Выбран другой цвет");
+        setCoverColor(CoverColors.GREEN);
+        refreshPage();
+        coverColorSelected(CoverColors.GREEN);
     }
 
     @Test(testName = "Выполенение задачи",
             description = "Проверка выполнения задания в срок",
-            dependsOnMethods = "setCoverColorTest")
+            groups = "dependentOnCard")
     public void completeTaskTest(){
-        boardPage.clickOnDueCheckbox();
-
-        Assert.assertEquals(boardPage.getCardStatus(), "complete");
-        boardPage.closeCard();
+        clickOnDueCheckbox();
+        cardStatusIsComplete();
     }
 
     @Test(testName = "Установка фона",
-            description = "Проверка установка зеленого фона",
-            dependsOnMethods = "completeTaskTest")
+            description = "Проверка установка зеленого фона")
     public void setBackgroundColorTest(){
-        boardPage.openBackgroundColors()
-                .setBackgroundColor(BackgroundColors.GREEN);
-
-        Assert.assertTrue(boardPage.isBackgroundColor(BackgroundColors.GREEN));
+        setGreenBackground();
+        checkBackgroundColor(BackgroundColors.GREEN);
     }
 
     @Test(testName = "Смена названия доски",
@@ -89,8 +79,7 @@ public class UITest {
             dependsOnMethods = "setBackgroundColorTest")
     public void setNewBoardNameTest(){
         String newName = "Образование";
-        boardPage.renameBoard(newName);
-
-        Assert.assertEquals(boardPage.getBoardName(), newName);
+        renameBoard(newName);
+        checkBoardName(newName);
     }
 }

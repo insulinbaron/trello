@@ -5,12 +5,26 @@ import models.User;
 
 import java.sql.*;
 
+/**
+ * The type Db utils.
+ */
 public final class DBUtils {
+    private static final DBUtils INSTANCE = new DBUtils();
     private static final String URL = "db.url";
     private static final String USERNAME = "db.username";
     private static final String PASSWORD = "db.password";
 
     private DBUtils(){}
+
+    /**
+     * Get instance db utils.
+     *
+     * @return the db utils
+     */
+    public static DBUtils getInstance(){
+        return INSTANCE;
+    }
+
 
     private static Connection getConnection(){
         Connection connection = null;
@@ -25,12 +39,18 @@ public final class DBUtils {
         return connection;
     }
 
-    public static User getUser(String login, String pass){
-        String str = "SELECT * FROM users WHERE email='%s' AND pass = MD5('%s')";
+    /**
+     * Возвращает пользователя.
+     *
+     * @param login the login
+     * @return the user
+     */
+    public static User getUser(String login){
+        String str = "SELECT * FROM users WHERE email='%s'";
         User user = null;
 
         try(Connection connection = DBUtils.getConnection();
-            PreparedStatement statement = connection.prepareStatement(String.format(str,login, pass))) {
+            PreparedStatement statement = connection.prepareStatement(String.format(str,login))) {
             ResultSet result = statement.executeQuery();
             if (result.next()){
                 String email = result.getString("email");
