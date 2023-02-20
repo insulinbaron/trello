@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Command line suite]">
+  <test thread-count="5" name="Command line test(failed)">
+    <groups>
+      <run>
+        <exclude name="optional"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="UITest">
+        <methods>
+          <include name="cardOnBoardTest"/>
+          <include name="setCoverColorTest"/>
+          <include name="completeTaskTest"/>
+          <include name="after"/>
+          <include name="setBackgroundColorTest"/>
+          <include name="before"/>
+          <include name="completeCheckboxTest"/>
+          <include name="setNewBoardNameTest"/>
+        </methods>
+      </class> <!-- UITest -->
+      <class name="RestApiTest">
+        <methods>
+          <include name="createCheckItemOnChecklistTest"/>
+          <include name="addCardOnListTest"/>
+          <include name="addAttachmentOnCardTest"/>
+          <include name="addStickerTest"/>
+          <include name="createBoardTest" invocation-numbers="0"/>
+          <include name="updateCardTest"/>
+          <include name="createListOnBoardTest"/>
+          <include name="createOtherListOnBoardTest"/>
+          <include name="createChecklistTest"/>
+          <include name="updateSecondCheckItemOnCardTest"/>
+          <include name="createCheckItemOnChecklistTest2"/>
+          <include name="setDeadlineTest"/>
+          <include name="updateCheckItemOnCardTest"/>
+          <include name="before"/>
+          <include name="setDescriptionOnCardTest"/>
+          <include name="archiveCardTest"/>
+        </methods>
+      </class> <!-- RestApiTest -->
+    </classes>
+  </test> <!-- Command line test(failed) -->
+</suite> <!-- Failed suite [Command line suite] -->
