@@ -12,7 +12,6 @@ public class UITest {
         createDriver();
         authorization();
         initHomePage();
-        openBoard("kanbantool");
         initBoardPage();
     }
 
@@ -33,9 +32,17 @@ public class UITest {
         closeCard();
     }
 
+    @Test(testName = "Открытие доски",
+    priority = 2)
+    public void openBoardTest(){
+        String boardName = "KanbanTool";
+        openBoard(boardName);
+        checkBoardName(boardName);
+    }
+
     @Test(testName = "Карточка в колонке",
-    priority = 2,
     description = "Проверка отображения карточки в колонке",
+    dependsOnMethods = "openBoardTest",
     groups = "dependentOnCard")
     public void cardOnBoardTest() {
         checkCardOnList("Done");
@@ -43,6 +50,7 @@ public class UITest {
 
     @Test(testName = "Выполение чекбокса",
     description = "Проверка выполнения пунктов чекбоксов",
+            dependsOnMethods = "openBoardTest",
             groups = "dependentOnCard")
     public void completeCheckboxTest(){
         String firstCheckboxName = "Понять протокол HTTP";
@@ -53,6 +61,7 @@ public class UITest {
 
     @Test(testName = "Установка обложки",
             description = "Проверка установки зеленой обложки для карточки",
+            dependsOnMethods = "openBoardTest",
             groups = "dependentOnCard")
     public void setCoverColorTest(){
         setCoverColor(CoverColors.GREEN);
@@ -62,6 +71,7 @@ public class UITest {
 
     @Test(testName = "Выполенение задачи",
             description = "Проверка выполнения задания в срок",
+            dependsOnMethods = "openBoardTest",
             groups = "dependentOnCard")
     public void completeTaskTest(){
         clickOnDueCheckbox();
@@ -69,7 +79,8 @@ public class UITest {
     }
 
     @Test(testName = "Установка фона",
-            description = "Проверка установка зеленого фона")
+            description = "Проверка установка зеленого фона",
+            dependsOnMethods = "openBoardTest")
     public void setBackgroundColorTest(){
         setGreenBackground();
         checkBackgroundColor(BackgroundColors.GREEN);
