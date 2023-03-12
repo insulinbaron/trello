@@ -12,6 +12,10 @@ public class UITest {
         createDriver();
         authorization();
         initHomePage();
+    }
+
+    @BeforeTest
+    public void beforeTest(){
         openBoard("kanbantool");
         initBoardPage();
     }
