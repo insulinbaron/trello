@@ -4,6 +4,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
+import utils.PropertiesUtils;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * The type Home page.
  */
 public class HomePage extends BasePage {
-    private String url = "https://trello.com/u/insulinbaron/boards";
+    private String url = PropertiesUtils.get("url.homepage");
 
     /**
      *

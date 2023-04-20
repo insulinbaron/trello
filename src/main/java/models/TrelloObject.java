@@ -10,6 +10,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class TrelloObject {
+    //TO DO переделать DTO
+    // add readme
+    // add logger
+    // add jenkins file
+    // add screen
     /**
      * name - имя трелло объекта.
      * id - id трелло объекта.

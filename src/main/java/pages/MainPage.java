@@ -3,12 +3,13 @@ package pages;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import utils.PropertiesUtils;
 
 /**
  * The type Main page.
  */
 public class MainPage extends BasePage {
-    private String url = "https://trello.com/";
+    private String url = PropertiesUtils.get("url.mainpage");
 
     /**
      * Кнопка для прохождения авторизации.

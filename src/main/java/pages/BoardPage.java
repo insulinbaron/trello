@@ -8,6 +8,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
+import utils.Logger;
 
 import java.time.Duration;
 import java.util.List;
@@ -181,11 +182,14 @@ public class BoardPage extends BasePage {
      * @return WebElement trello card
      */
     private WebElement getCard(String cardName){
-        return cards.stream()
+        Logger.log("Проверяем наличие карточки " + cardName);
+        WebElement element = cards.stream()
                 .filter(WebElement::isDisplayed)
                 .filter(card -> card.getText().equalsIgnoreCase(cardName))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Не удалось найти карточку \"" + cardName + "\""));
+        Logger.log("Карточка " + cardName + " найдена");
+        return element;
     }
 
     /**
@@ -195,7 +199,9 @@ public class BoardPage extends BasePage {
      * @return the board page
      */
     public BoardPage clickOnCard(String cardName){
+        Logger.log("Выполняется открытие карточки " + cardName);
         getCard(cardName).click();
+        Logger.log("Карточка " + cardName + " открыта");
         return this;
     }
 
@@ -209,11 +215,14 @@ public class BoardPage extends BasePage {
     }
 
     private WebElement getCheckListCheckbox(String checkboxName){
-        return checkListCheckboxes.stream()
+        Logger.log("Производится поиск чекбокса \"" + checkboxName + "\"");
+        WebElement checkbox = checkListCheckboxes.stream()
                 .filter(WebElement::isDisplayed)
                 .filter(cb -> cb.getText().equalsIgnoreCase(checkboxName))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Не удалось найти чекбокс \"" + checkboxName + "\""));
+        Logger.log("Чекбокс \"" + checkboxName + "\" найден");
+        return checkbox;
     }
 
     /**

@@ -3,12 +3,14 @@ package pages;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import utils.PropertiesUtils;
 
 /**
  * The type Login page.
  */
 public class LoginPage extends BasePage {
-    private String url = "https://trello.com/login";
+
+    private String url = PropertiesUtils.get("url.loginpage");
 
     /**
      * Поле ввода электронной почты
