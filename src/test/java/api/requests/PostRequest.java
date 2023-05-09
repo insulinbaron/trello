@@ -3,7 +3,9 @@ package api.requests;
 import api.requests.specifications.RequestSpec;
 import api.requests.specifications.ResponseSpec;
 import endpoints.HTTPEndpoints;
+import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
+import logger.Log;
 
 import java.io.File;
 import java.util.HashMap;
@@ -23,7 +25,8 @@ public class PostRequest {
      * @return
      */
     private static JsonPath requestWithQueryParams(HashMap<String, String> queryParam, String httpEndpoint){
-        return given()
+        Log.info("Отправляем POST запрос \nendpoint: " + httpEndpoint);
+        return RestAssured.given()
                 .spec(RequestSpec.defaultRequestSpecification(queryParam))
                 .when()
                 .post(httpEndpoint)
@@ -44,7 +47,8 @@ public class PostRequest {
      */
 
     private static JsonPath requestWithPathParamAndQueryParams(String pathKey, String pathValue, HashMap<String, String> queryParams, String httpEndpoint){
-        return given()
+        Log.info("Отправляем POST запрос \nendpoint: " + httpEndpoint);
+        return RestAssured.given()
                 .spec(RequestSpec.requestWithPathParamAndQueryParams(pathKey, pathValue, queryParams))
                 .when()
                 .post(httpEndpoint)
@@ -64,7 +68,8 @@ public class PostRequest {
      * @return JsonPath
      */
     private static JsonPath requestWithAttachment(String pathKey, String pathValue, File file, String httpEndpoint){
-        return given()
+        Log.info("Отправляем POST запрос \nendpoint: " + httpEndpoint);
+        return RestAssured.given()
                 .spec(RequestSpec.requestWithAttachment(pathKey, pathValue))
                 .multiPart("file", file)
                 .when()

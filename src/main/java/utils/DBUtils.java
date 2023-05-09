@@ -53,12 +53,7 @@ public final class DBUtils {
             PreparedStatement statement = connection.prepareStatement(String.format(str,login))) {
             ResultSet result = statement.executeQuery();
             if (result.next()){
-                String email = result.getString("email");
-                String password = result.getString("pass");
-                String api_key = result.getString("api_key");
-                String api_token = result.getString("api_token");
-
-                user = new User(email, password, api_key, api_token);
+                user = new User(result);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -2,11 +2,12 @@ package api.requests;
 
 import api.requests.specifications.RequestSpec;
 import api.requests.specifications.ResponseSpec;
+import io.restassured.RestAssured;
 
 import endpoints.HTTPEndpoints;
 import io.restassured.path.json.JsonPath;
+import logger.Log;
 
-import static io.restassured.RestAssured.given;
 
 /**
  * The type Get requests.
@@ -20,7 +21,8 @@ public class GetRequests {
      * @return
      */
     private static JsonPath requestWithPathParam(String key, String value, String httpEndpoint){
-        return given()
+        Log.info("Отправляем GET запрос \nendpoint: " + httpEndpoint);
+        return RestAssured.given()
                 .spec(RequestSpec.requestWithPathParam(key, value))
                 .when()
                 .get(httpEndpoint)

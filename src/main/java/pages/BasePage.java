@@ -1,5 +1,8 @@
 package pages;
 
+import io.qameta.allure.Attachment;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -18,5 +21,15 @@ abstract public class BasePage {
      */
     public static void setDriver(WebDriver webDriver){
         driver = webDriver;
+    }
+
+    /**
+     * Save screenshot byte [ ].
+     *
+     * @return the byte [ ]
+     */
+    @Attachment(value = "screenshot", type="image/png")
+    public static byte[] saveScreenshot(){
+        return ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
     }
 }

@@ -3,7 +3,9 @@ package api.requests;
 import api.requests.specifications.RequestSpec;
 import api.requests.specifications.ResponseSpec;
 import endpoints.HTTPEndpoints;
+import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
+import logger.Log;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +27,8 @@ public class PutRequests {
      */
 
     private static JsonPath requestWithPathParamAndQueryParams(String pathKey, String pathValue, Map<String, String> queryParams, String httpEndpoint){
-        return given()
+        Log.info("Отправляем PUT запрос \nendpoint: " + httpEndpoint);
+        return RestAssured.given()
                 .spec(RequestSpec.requestWithPathParamAndQueryParams(pathKey, pathValue, queryParams))
                 .when()
                 .put(httpEndpoint)
@@ -47,7 +50,8 @@ public class PutRequests {
      */
 
     private static JsonPath requestWithPathAndQueryParams(String pathKey, String pathValue, String queryKey, String queryValue, String httpEndpoint){
-        return given()
+        Log.info("Отправляем PUT запрос \nendpoint: " + httpEndpoint);
+        return RestAssured.given()
                 .spec(RequestSpec.requestWithPathAndQueryParams(pathKey,pathValue,queryKey,queryValue))
                 .when()
                 .put(httpEndpoint)
@@ -63,15 +67,16 @@ public class PutRequests {
      * @param pathParams параметры пути
      * @param queryKey ключ параметра запроса
      * @param queryValue значение параметра запроса
-     * @param httpEndpont конечная точка http запроса
+     * @param httpEndpoint конечная точка http запроса
      * @return
      */
 
-    private static JsonPath requestWithPathParamsAndQueryParam(HashMap<String, String> pathParams, String queryKey, String queryValue, String httpEndpont){
-        return given()
+    private static JsonPath requestWithPathParamsAndQueryParam(HashMap<String, String> pathParams, String queryKey, String queryValue, String httpEndpoint){
+        Log.info("Отправляем PUT запрос \nendpoint: " + httpEndpoint);
+        return RestAssured.given()
                 .spec(RequestSpec.requestWithPathParamsAndQueryParam(pathParams, queryKey, queryValue))
                 .when()
-                .put(httpEndpont)
+                .put(httpEndpoint)
                 .then()
                 .spec(ResponseSpec.defaultResponseSpec())
                 .log().all()

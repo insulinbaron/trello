@@ -37,11 +37,12 @@ public class HomePage extends BasePage {
      */
 
     private WebElement getBoard(String boardName){
-        return boards.stream()
+        WebElement element = boards.stream()
                 .filter(WebElement::isDisplayed)
                 .filter(we -> we.getAttribute("title").equalsIgnoreCase(boardName))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Не удалось найти доску \"" + boardName + "\""));
+        return element;
     }
 
     /**

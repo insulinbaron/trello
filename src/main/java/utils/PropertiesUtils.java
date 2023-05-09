@@ -11,7 +11,7 @@ public final class PropertiesUtils {
     /**
      * The constant INSTANCE.
      */
-    public static final PropertiesUtils INSTANCE = new PropertiesUtils();
+    private static final PropertiesUtils INSTANCE = new PropertiesUtils();
     private static final Properties PROPERTIES = new Properties();
 
     static {

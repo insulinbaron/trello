@@ -1,6 +1,5 @@
 import io.restassured.path.json.JsonPath;
 import models.*;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import providers.DataProvider;
 import utils.FileUtils;
@@ -10,28 +9,14 @@ import java.io.File;
 import java.util.HashMap;
 
 public class RestApiTest{
-    private TrelloObject board;
-    private TrelloObject firstList;
-    private TrelloObject firstCard;
-    private TrelloObject attachment;
-    private TrelloObject checklist;
-    private TrelloObject firstCheckItem;
-    private TrelloObject secondCheckItem;
-    private TrelloObject secondList;
-
-
-    @BeforeClass
-    public void before(){
-        board = createTrelloObject();
-        firstList = createTrelloObject();
-        firstCard = createTrelloObject();
-        attachment = createTrelloObject();
-        checklist = createTrelloObject();
-        firstCheckItem = createTrelloObject();
-        secondCheckItem = createTrelloObject();
-        secondList = createTrelloObject();
-    }
-
+    private TrelloObject.Board board;
+    private TrelloObject.List firstList;
+    private TrelloObject.Card firstCard;
+    private TrelloObject.Attachment attachment;
+    private TrelloObject.CheckList checklist;
+    private TrelloObject.CheckItem firstCheckItem;
+    private TrelloObject.CheckItem secondCheckItem;
+    private TrelloObject.List secondList;
     @Test( testName = "Проверка создания доски",
             priority = 1,
             dataProviderClass = DataProvider.class,
@@ -41,9 +26,7 @@ public class RestApiTest{
         JsonPath response = createBoard(params);
 
         checkName(response, params.get("name"));
-
-        setName(board, response);
-        setId(board, response);
+        board = createBoard(response);
     }
 
     @Test(testName = "Проверка содания колонки",
@@ -58,10 +41,7 @@ public class RestApiTest{
 
         checkIdBoard(response, board.getId());
         checkName(response, params.get("name"));
-
-        setIdBoard(firstList, response);
-        setId(firstList, response);
-        setName(firstList, response);
+        firstList = createList(response);
     }
 
     @Test(testName = "Проверка создания карточки",
@@ -80,11 +60,7 @@ public class RestApiTest{
         checkIdBoard(response, board.getId());
         checkIdList(response, firstList.getId());
 
-        setId(firstCard, response);
-        setName(firstCard, response);
-        setIdList(firstCard, response);
-        setIdBoard(firstCard, response);
-
+        firstCard = createCard(response);
     }
 
     @Test(testName = "Проверка прикрепления изображения",
@@ -97,8 +73,7 @@ public class RestApiTest{
 
         checkUpload(response);
 
-        setId(attachment, response);
-        setName(attachment, response);
+        attachment = createAttachment(response);
     }
 
     @Test(testName = "Проверка установка даты",
@@ -139,10 +114,7 @@ public class RestApiTest{
         checkIdCard(response, firstCard.getId());
         checkIdBoard(response, board.getId());
 
-        setId(checklist, response);
-        setName(checklist, response);
-        setIdBoard(checklist, response);
-        setIdCard(checklist, response);
+        checklist = createCheckList(response);
     }
 
     @Test(testName = "Создание чекитема",
@@ -158,9 +130,7 @@ public class RestApiTest{
         checkIdCheckList(response, checklist.getId());
         checkName(response, params.get("name"));
 
-        setId(firstCheckItem, response);
-        setName(firstCheckItem, response);
-        setIdCheckList(firstCheckItem, response);
+        firstCheckItem = createCheckItem(response);
     }
 
     @Test(testName = "Создание дополнительного чекитема",
@@ -173,13 +143,10 @@ public class RestApiTest{
 
         JsonPath response = createCheckItem("id", checklist.getId(), params);
 
-
         checkIdCheckList(response, checklist.getId());
         checkName(response, params.get("name"));
 
-        setId(secondCheckItem, response);
-        setName(secondCheckItem, response);
-        setIdCheckList(secondCheckItem, response);
+        secondCheckItem = createCheckItem(response);
     }
 
     @Test(testName = "Взаимодействие с чекитемом",
@@ -210,9 +177,7 @@ public class RestApiTest{
         checkIdBoard(response, board.getId());
         checkName(response, params.get("name"));
 
-        setIdBoard(secondList, response);
-        setId(secondList, response);
-        setName(secondList, response);
+        secondList = createList(response);
     }
 
     @Test(testName = "Перенос карточки",
@@ -267,5 +232,4 @@ public class RestApiTest{
         idNotNull(response);
         checkImage(response, params.get("image"));
     }
-
 }

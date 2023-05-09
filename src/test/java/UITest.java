@@ -1,3 +1,5 @@
+import io.qameta.allure.Attachment;
+import pages.BasePage;
 import pages.elements.colors.BackgroundColors;
 import pages.elements.colors.CoverColors;
 import org.testng.annotations.*;
@@ -18,7 +20,7 @@ public class UITest {
 
     @AfterClass
     public void after(){
-        closeActiveBoard();
+//        closeActiveBoard();
         closeDriver();
     }
 
@@ -29,7 +31,13 @@ public class UITest {
 
     @AfterMethod(onlyForGroups = "dependentOnCard")
     public void afterCardGroup(){
+        saveScreenshot();
         closeCard();
+    }
+
+    @AfterMethod
+    public void saveScreenshot(){
+        BasePage.saveScreenshot();
     }
 
     @Test(testName = "Открытие доски",
