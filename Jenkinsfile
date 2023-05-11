@@ -10,7 +10,7 @@ pipeline {
         cron(env.BRANCH_NAME == 'main' ? 'H H/12 * * *' : "")
     }
     parameters {
-        choice(name: "tests", choices: "ALL\nAPI\nUI", description: "Тесты для запуска")
+        choice(name: "suite", choices: "testng.xml\ntestng-api.xml\ntestng-ui.xml", description: "Тесты для запуска")
         string(name: "branch", defaultValue: "main", description: "Имя ветки для запуска")
     }
     stages {
@@ -28,18 +28,7 @@ pipeline {
 
         stage('Run test') {
             steps{
-                when {
-                    tests 'ALL'
-                    sh 'mvn test -Dsurefire.suiteXmlFiles=testng.xml'
-                }
-                when {
-                    tests 'API'
-                    sh 'mvn test -Dsurefire.suiteXmlFiles=testng-api.xml'
-                }
-                when {
-                    tests 'UI'
-                    sh 'mvn test -Dsurefire.suiteXmlFiles=testng-ui.xml'
-                }
+                 sh 'mvn test -Dsurefire.suiteXmlFiles=${suite}'
             }
         }
         stage('Report') {

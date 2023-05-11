@@ -98,6 +98,11 @@
                     <systemPropertyVariables>
                         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
                     </systemPropertyVariables>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>testng-ui.xml</suiteXmlFile>
+                        <suiteXmlFile>testng-api.xml</suiteXmlFile>
+                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
                 </configuration>
                 <dependencies>
                     <dependency>
