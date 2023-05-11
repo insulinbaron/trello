@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                 git(url: 'https://github.com/insulinbaron/trello.git', branch: '${params.branch}')
+                 git(url: 'https://github.com/insulinbaron/trello.git', branch: '${branch}')
             }
         }
 
