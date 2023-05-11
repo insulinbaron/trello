@@ -19,13 +19,11 @@ pipeline {
                  git(url: 'https://github.com/insulinbaron/trello.git', branch: '${branch}')
             }
         }
-
         stage('Compile') {
             steps {
                 sh 'mvn clean compile'
             }
         }
-
         stage('Run test') {
             steps{
                  sh 'mvn test -Dsurefire.suiteXmlFiles=${suite}'
