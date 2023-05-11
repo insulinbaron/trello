@@ -46,7 +46,6 @@ pipeline {
                     }
                     sh 'mvn test -Dsurefire.suiteXmlFiles=testng-api.xml'
                 }
-
             }
         }
         stage('Report') {
@@ -58,5 +57,7 @@ pipeline {
                                 reportBuildPolicy: 'ALWAYS',
                                 results          : [[path: 'target/allure-results']]
                         ])
+                    }
+        }
     }
 }
