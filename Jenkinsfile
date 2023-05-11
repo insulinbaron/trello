@@ -29,22 +29,16 @@ pipeline {
         stage('Run test') {
             steps{
                 when {
-                    allOf {
-                        tests: ALL
-                    }
+                    tests 'ALL'
                     sh 'mvn test -Dsurefire.suiteXmlFiles=testng.xml'
                 }
                 when {
-                    allOf {
-                        tests: API
-                    }
+                    tests 'API'
                     sh 'mvn test -Dsurefire.suiteXmlFiles=testng-api.xml'
                 }
                 when {
-                    allOf {
-                        tests: UI
-                    }
-                    sh 'mvn test -Dsurefire.suiteXmlFiles=testng-api.xml'
+                    tests 'UI'
+                    sh 'mvn test -Dsurefire.suiteXmlFiles=testng-ui.xml'
                 }
             }
         }
