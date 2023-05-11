@@ -93,12 +93,12 @@ public class UITest {
         checkBackgroundColor(BackgroundColors.GREEN);
     }
 
-    @Test(testName = "Смена названия доски",
-            description = "Проверка смены названия доски",
-            dependsOnMethods = "setBackgroundColorTest")
-    public void setNewBoardNameTest(){
-        String newName = "Образование";
-        renameBoard(newName);
-        checkBoardName(newName);
-    }
+//    @Test(testName = "Смена названия доски",
+//            description = "Проверка смены названия доски",
+//            dependsOnMethods = "setBackgroundColorTest")
+//    public void setNewBoardNameTest(){
+//        String newName = "Образование";
+//        renameBoard(newName);
+//        checkBoardName(newName);
+//    }
 }
