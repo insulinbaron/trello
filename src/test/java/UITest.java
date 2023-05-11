@@ -19,7 +19,7 @@ public class UITest {
 
     @AfterClass
     public void after(){
-//        closeActiveBoard();
+        closeActiveBoard();
         closeDriver();
     }
 
