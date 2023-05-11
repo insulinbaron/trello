@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    tools {
-        maven 'maven 3.8.4'
-    }
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
     }
