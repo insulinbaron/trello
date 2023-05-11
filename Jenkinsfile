@@ -1,9 +1,7 @@
 pipeline {
+    agent any
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
-    }
-    agent {
-        any
     }
     parameters {
         choice(name: "tests", choices: "API\nUI", description: "Тесты для запуска")
