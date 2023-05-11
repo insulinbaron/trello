@@ -7,13 +7,13 @@ pipeline {
     }
     parameters {
         choice(name: "tests", choices: "API\nUI", description: "Тесты для запуска")
-        sting(name: "branch", defaultValue: "main", description: "Имя ветки для запуска")
+        string(name: "branch", defaultValue: "main", description: "Имя ветки для запуска")
     }
 
     stages {
         stage('Build') {
             steps {
-                 git(url: 'https://github.com/insulinbaron/trello.git', branch: '${params.branch}', credentialId: '')
+                 git(url: 'https://github.com/insulinbaron/trello.git', branch: '${params.branch}')
             }
         }
 
