@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite">
-    <test verbose="2" preserve-order="true" name="All test">
+<suite name="UI Test Suite">
+    <test verbose="2" preserve-order="true" name="UI tests">
         <classes>
-            <class name="RestApiTest"></class>
             <class name="UITest"></class>
         </classes>
     </test>

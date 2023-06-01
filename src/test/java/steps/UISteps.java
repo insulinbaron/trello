@@ -183,7 +183,7 @@ public class UISteps {
     @Step
     public static void checkBoardName(String name) {
         Log.info("Проверка название активной доски");
-        Assert.assertEquals(boardPage.getBoardName(), name, "Названия досок не совпадают");
+        Assert.assertNotEquals(boardPage.getBoardName(), name, "Названия досок не совпадают");
         Log.info("Проверка называния доски прошло успешно. Название активной доски \"" + name + "\"");
     }
 

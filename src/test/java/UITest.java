@@ -1,4 +1,3 @@
-import io.qameta.allure.Attachment;
 import pages.BasePage;
 import pages.elements.colors.BackgroundColors;
 import pages.elements.colors.CoverColors;
@@ -20,7 +19,7 @@ public class UITest {
 
     @AfterClass
     public void after(){
-//        closeActiveBoard();
+        closeActiveBoard();
         closeDriver();
     }
 
